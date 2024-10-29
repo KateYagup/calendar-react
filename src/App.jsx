@@ -26,21 +26,26 @@ class App extends Component {
   handleCurrentWeek = () => {
     this.setState({
       weekStartDate: new Date(),
-
     })
   }
+
+  makeModalVisible = () => {
+    this.setState({
+      modalVisible: true,
+    });
+  }
+
+  makeModalInvisible = () => {
+    this.setState({
+      modalVisible: false,
+    });
+  }
+
 
 
 
   render() {
     const { weekStartDate } = this.state;
-    // const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-    // console.log('weekStartDate');
-    // console.log(weekStartDate);
-    // const nextDate = weekStartDate.getTime() + 7 * 1000 * 60 * 60 * 24;
-    // console.log(new Date(nextDate));
-    // const nextNumberDay = new Date(nextDate)
-    // console.log(nextNumberDay.getDate());
     const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
     return (
@@ -50,8 +55,14 @@ class App extends Component {
           handlePreviuosWeek={this.handlePreviuosWeek}
           handleCurrentWeek={this.handleCurrentWeek}
           weekStartDate={this.state.weekStartDate}
+          handleModal={this.makeModalVisible}
+
         />
-        <Calendar weekDates={weekDates} />
+        <Calendar
+          weekDates={weekDates}
+          modalVisible={this.state.modalVisible}
+          handleClose={this.makeModalInvisible}
+        />
       </>
     );
   }

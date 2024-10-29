@@ -4,7 +4,7 @@ import moment from 'moment';
 import './header.scss';
 import { getWeekStartDate, months } from '../../utils/dateUtils';
 
-const Header = ({ handleNextWeek, handlePreviuosWeek, handleCurrentWeek, weekStartDate }) => {
+const Header = ({ handleNextWeek, handlePreviuosWeek, handleCurrentWeek, weekStartDate, handleModal }) => {
   const firstDayOfWeek = getWeekStartDate(weekStartDate);
   const lastDayOfWeek = new Date(firstDayOfWeek.getTime() + 10000 * 360 * 24 * 6);
 
@@ -15,7 +15,7 @@ const Header = ({ handleNextWeek, handlePreviuosWeek, handleCurrentWeek, weekSta
 
   return (
     <header className="header">
-      <button className="button create-event-btn">
+      <button className="button create-event-btn" onClick={handleModal}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>
       <div className="navigation">

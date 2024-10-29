@@ -11,8 +11,15 @@ const Week = ({ weekDates, events }) => {
         const dayEnd = new Date(dayStart.getTime()).setHours(
           dayStart.getHours() + 24
         );
-        console.log('events');
+        console.log('events!!!');
         console.log(events);
+        console.log('dayStart!!!');
+        console.log(dayStart);
+        events.map(event => {
+          console.log('!!!!!!!!');
+          console.log(event.dateFrom);
+          console.log(dayStart);
+        })
         //getting all events from the day we will render
         const dayEvents = events.filter(
           (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
