@@ -41,9 +41,6 @@ class App extends Component {
     });
   }
 
-
-
-
   render() {
     const { weekStartDate } = this.state;
     const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
@@ -56,7 +53,6 @@ class App extends Component {
           handleCurrentWeek={this.handleCurrentWeek}
           weekStartDate={this.state.weekStartDate}
           handleModal={this.makeModalVisible}
-
         />
         <Calendar
           weekDates={weekDates}

@@ -19,7 +19,7 @@ export const generateWeekRange = (startDate) => {
   return result;
 };
 
-export const getDateTime = (date, time) => {
+export const Time = (date, time) => {
   const [hours, minutes] = time.split(':');
   const withHours = new Date(new Date(date).setHours(Number(hours)));
   const withMinutes = new Date(new Date(withHours).setMinutes(Number(minutes)));

@@ -25,7 +25,8 @@ class Calendar extends Component {
         <Navigation weekDates={weekDates} />
         <div className="calendar__body">
           <div className="calendar__week-container">
-            {this.props.modalVisible && <Modal handleClose={this.props.handleClose} />}
+            {/* {this.props.modalVisible && <Modal handleClose={this.props.handleClose} />} */}
+            <Modal handleClose={this.props.handleClose} />
             <Sidebar />
             <Week weekDates={weekDates} events={this.state.events} />
           </div>
