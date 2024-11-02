@@ -6,8 +6,6 @@ import { events } from '../../../src/gateway/events.js';
 import './day.scss';
 
 const Day = ({ dataDay, dayEvents }) => {
-  // console.log('dayEvents')
-  // console.log(dayEvents)
 
   const hours = Array(24)
     .fill()

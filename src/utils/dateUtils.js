@@ -5,7 +5,7 @@ export const getWeekStartDate = (date) => {
     dayOfWeek === 0
       ? -6 // for Sunday
       : 1 - dayOfWeek;
-  console.log(dayOfWeek);
+  // console.log(dayOfWeek);
   const monday = new Date(dateCopy.setDate(date.getDate() + difference));
   return new Date(monday.getFullYear(), monday.getMonth(), monday.getDate());
 };

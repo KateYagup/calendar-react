@@ -1,100 +1,86 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import './modal.scss';
 
-const createData = () => {
-  const data = moment().format('YYYY-MM-DD');
-  return data;
-}
+function Modal({ handleClose, onCreate }) {
 
-const createEndTime = () => {
-  const dayStart = new Date();
-  const timeStamp = dayStart.getTime();
-  // const nextHour = timeStamp + 10000 * 360;
-  const nextHour = new Date(dayStart.getTime()).setHours(dayStart.getHours() + 1);
-  const nextHourForm = new Date(nextHour);
-  return moment(nextHourForm).format('HH:mm');
-}
+  const [formState, setFormState] = useState({
+    title: '',
+    description: '',
+    date: moment().format('YYYY-MM-DD'),
+    startTime: moment().format('HH:mm'),
+    endTime: moment().add(1, 'hour').format('HH:mm'),
+  });
 
-class Modal extends Component {
-  state = {
-    beginTime: moment(new Date()).format('HH:mm'),
-    endTime: createEndTime(),
-    currentDay: createData(),
-    title: 'Hello',
-  }
-
-  handleTitle = (event) => {
-    this.setState({
-      title: event.target.value
-    })
-  }
-
-  // handleCurrentDay = (event) => {
-  //   this.setState({
-  //     currentDay: '2023-10-30'
-  //   })
-  // }
-
-  handleChange = e => {
+  const onChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    setFormState({ ...formState, [name]: value });
+    console.log(formState);
+  };
 
+  const handleEvents = () => {
+    onCreate(formState);
   }
 
-  render() {
-    const { title, currentDay } = this.state;
-    return (
-      <div className="modal overlay">
-        <div className="modal__content">
-          <div className="create-event">
-            <button className="create-event__close-btn" onClick={this.props.handleClose}>+</button>
-            <form className="event-form">
-              <input
-                type="text"
-                name="title"
-                placeholder="Title"
+  return (
+    <div className="modal overlay">
+      <div className="modal__content">
+        <div className="create-event">
+          <button className="create-event__close-btn" onClick={handleClose}>+</button>
+          <form className="event-form">
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              className="event-form__field"
+              value={formState.title}
+              onChange={onChange}
+              required
+            />
+            <div className="event-form__time">
+              <input type="date"
+                name="date"
                 className="event-form__field"
-                value={this.state.title}
-                onChange={this.handleTitle}
+                // value='2018-07-22' 
+                value={formState.date}
+                onChange={onChange}
+                required
               />
-              <div className="event-form__time">
-                <input type="date"
-                  name="date"
-                  className="event-form__field"
-                  // value='2018-07-22' 
-                  value={this.state.currentDay}
-                  onChange={handleChange}
-                />
-                <input
-                  type="time"
-                  name="startTime"
-                  className="event-form__field"
-                  value={this.state.beginTime}
-                // onChange={this.handleChange}
-                />
-                <span>-</span>
-                <input
-                  type="time"
-                  name="endTime"
-                  className="event-form__field"
-                  value={this.state.endTime}
-                />
-              </div>
-              <textarea
-                name="description"
-                placeholder="Description"
+              <input
+                type="time"
+                name="startTime"
                 className="event-form__field"
-              ></textarea>
-              <button type="submit" className="event-form__submit-btn">
-                Create
-              </button>
-            </form>
-          </div>
+                value={formState.startTime}
+                onChange={onChange}
+                required
+              />
+              <span>-</span>
+              <input
+                type="time"
+                name="endTime"
+                className="event-form__field"
+                value={formState.endTime}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <textarea
+              name="description"
+              placeholder="Description"
+              className="event-form__field"
+              value={formState.description}
+              onChange={onChange}
+              required
+            ></textarea>
+            <button type="submit" className="event-form__submit-btn" onClick={handleEvents}>
+              Create
+            </button>
+          </form>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default Modal;
