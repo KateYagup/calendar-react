@@ -6,7 +6,7 @@ function Modal({ handleClose, onCreate }) {
 
   const [formState, setFormState] = useState({
     title: '',
-    description: '',
+    description: '!!!',
     date: moment().format('YYYY-MM-DD'),
     startTime: moment().format('HH:mm'),
     endTime: moment().add(1, 'hour').format('HH:mm'),
@@ -64,14 +64,23 @@ function Modal({ handleClose, onCreate }) {
                 required
               />
             </div>
-            <textarea
+            <input
+              type="text"
               name="description"
               placeholder="Description"
               className="event-form__field"
               value={formState.description}
               onChange={onChange}
               required
-            ></textarea>
+            />
+            {/* <textarea
+              name="description"
+              placeholder="Description"
+              className="event-form__field"
+              value={formState.description}
+              onChange={e => onChange(e)}
+              required
+            ></textarea> */}
             <button type="submit" className="event-form__submit-btn" onClick={handleEvents}>
               Create
             </button>
