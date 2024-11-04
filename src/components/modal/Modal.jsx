@@ -13,6 +13,7 @@ function Modal({ handleClose, onCreate }) {
   });
 
   const onChange = e => {
+    e.preventDefault();
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
     console.log(formState);

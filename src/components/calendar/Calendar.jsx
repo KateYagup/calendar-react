@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import Navigation from './../navigation/Navigation';
 import Week from '../week/Week';
@@ -20,16 +20,10 @@ const newEvent = [{
 
 const allEvents = events.concat(newEvent);
 
-class Calendar extends Component {
-  state = {
-    events,
-    // newEvent,
-    // events: newEvents,
-    // events: allEvents
-    // visibleModal: true,
-  };
+function Calendar({ modalVisible, handleClose, weekDates }) {
+  const [state, setState] = useState({ events });
 
-  onCreate = text => {
+  const onCreate = text => {
     console.log('text!!!');
     console.log(text);
     const { tasks } = this.state;
@@ -42,38 +36,38 @@ class Calendar extends Component {
       dateTo: new Date(2024, 11, 2, 11, 30),
     }];
 
-    const updatedTasks = this.state.events.concat(newText);
-
+    const updatedTasks = events.concat(newText);
     console.log(updatedTasks);
-    this.setState(newText);
+    setState(newText);
   }
-  handleThisClick() {
-    // console.log('handleThisClick');
+
+  const handleThisClick = () => {
+    console.log('handleThisClick');
     const newEvent = [{
       id: 8,
       title: ' text.title',
       description: 'text.description',
-      dateFrom: new Date(2024, 10, 2, 10, 30),
-      dateTo: new Date(2024, 10, 2, 11, 30),
+      dateFrom: new Date(2024, 10, 4, 10, 30),
+      dateTo: new Date(2024, 10, 4, 11, 30),
     },];
 
-    this.setState({ events: newEvent });
+    setState(newEvent);
   }
 
-  render() {
-    const { weekDates } = this.props;
+  {
+    // const { weekDates } = this.props;
 
     return (
       <section className="calendar">
-        <button onClick={this.handleThisClick}>!!!!!</button>
+        <button onClick={handleThisClick}>!!!!!</button>
         <Navigation weekDates={weekDates} />
         <div className="calendar__body">
           <div className="calendar__week-container">
-            {this.props.modalVisible && <Modal handleClose={this.props.handleClose}
-              onCreate={this.onCreate} />}
+            {modalVisible && <Modal handleClose={handleClose}
+              onCreate={onCreate} />}
             {/* <Modal handleClose={this.props.handleClose} handleInfo={this.props.handleInfo} /> */}
             <Sidebar />
-            <Week weekDates={weekDates} events={this.state.events} />
+            <Week weekDates={weekDates} events={events} />
             {/* <button onClick={handleThisClick}>Chane</button> */}
 
           </div>
