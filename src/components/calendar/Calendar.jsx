@@ -8,20 +8,21 @@ import events from '../../gateway/events';
 
 import './calendar.scss';
 
-// const newEvents = events.slice();
+const staticEvents = Object.assign([], events);
 
-const newEvent = [{
-  id: 8,
-  title: ' text.title',
-  description: 'text.description',
-  dateFrom: new Date(2024, 10, 2, 10, 30),
-  dateTo: new Date(2024, 10, 2, 11, 30),
-}];
 
-const allEvents = events.concat(newEvent);
+// const newEvent = [{
+//   id: 8,
+//   title: ' text.title',
+//   description: 'text.description',
+//   dateFrom: new Date(2024, 10, 2, 10, 30),
+//   dateTo: new Date(2024, 10, 2, 11, 30),
+// }];
+
+// const allEvents = events.concat(newEvent);
 
 function Calendar({ modalVisible, handleClose, weekDates }) {
-  const [state, setState] = useState({ events });
+  const [state, setState] = useState(staticEvents);
 
   const onCreate = text => {
     console.log('text!!!');
@@ -52,6 +53,7 @@ function Calendar({ modalVisible, handleClose, weekDates }) {
     },];
 
     setState(newEvent);
+    console.log({ events: newEvent });
   }
 
   {
@@ -69,7 +71,6 @@ function Calendar({ modalVisible, handleClose, weekDates }) {
             <Sidebar />
             <Week weekDates={weekDates} events={events} />
             {/* <button onClick={handleThisClick}>Chane</button> */}
-
           </div>
         </div>
       </section>
