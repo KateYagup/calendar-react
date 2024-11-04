@@ -13,14 +13,16 @@ function Modal({ handleClose, onCreate }) {
   });
 
   const onChange = e => {
-    e.preventDefault();
+    // e.preventDefault();
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
     console.log(formState);
   };
 
-  const handleEvents = () => {
+  const handleEvents = (e) => {
+    e.preventDefault();
     onCreate(formState);
+    handleClose();
   }
 
   return (
@@ -65,7 +67,7 @@ function Modal({ handleClose, onCreate }) {
                 required
               />
             </div>
-            <input
+            {/* <input
               type="text"
               name="description"
               placeholder="Description"
@@ -73,16 +75,19 @@ function Modal({ handleClose, onCreate }) {
               value={formState.description}
               onChange={onChange}
               required
-            />
-            {/* <textarea
+            /> */}
+            <textarea
               name="description"
               placeholder="Description"
               className="event-form__field"
               value={formState.description}
               onChange={e => onChange(e)}
               required
-            ></textarea> */}
-            <button type="submit" className="event-form__submit-btn" onClick={handleEvents}>
+            ></textarea>
+            <button
+              type="submit"
+              className="event-form__submit-btn"
+              onClick={handleEvents}>
               Create
             </button>
           </form>

@@ -11,13 +11,29 @@ import './calendar.scss';
 const staticEvents = Object.assign([], events);
 
 
-function Calendar({ modalVisible, handleClose, weekDates }) {
+const newEvent = [{
+  id: 8,
+  title: ' text.title',
+  description: 'text.description',
+  dateFrom: new Date(2024, 10, 2, 10, 30),
+  dateTo: new Date(2024, 10, 2, 11, 30),
+}];
+
+// const allEvents = events.concat(newEvent);
+
+function Calendar({ modalVisible, handleClose, weekDates, makeModalInvisible }) {
   const [stateEvents, setStateEvents] = useState(staticEvents);
 
   const onCreate = text => {
-    const updatedTasks = stateEvents.concat(text);
-    console.log(updatedTasks);
+    text['id'] = Math.random();
+    const dateTimeFrom = new Date(Date.parse(text.date + 'T' + text.startTime));
+    const dateTimeTo = new Date(Date.parse(text.date + 'T' + text.endTime));
+
+    text['dateFrom'] = dateTimeFrom;
+    text['dateTo'] = dateTimeTo;
+    const updatedTasks = staticEvents.concat([text]);
     setStateEvents(updatedTasks);
+    // staticEvents = Object.assign([], staticEvents);
   }
 
   return (
@@ -25,9 +41,11 @@ function Calendar({ modalVisible, handleClose, weekDates }) {
       <Navigation weekDates={weekDates} />
       <div className="calendar__body">
         <div className="calendar__week-container">
-          {modalVisible && <Modal handleClose={handleClose}
-            onCreate={onCreate} />}
-          {/* <Modal handleClose={this.props.handleClose} handleInfo={this.props.handleInfo} /> */}
+          {modalVisible
+            && <Modal
+              handleClose={handleClose}
+              onCreate={onCreate}
+            />}
           <Sidebar />
           <Week weekDates={weekDates} events={stateEvents} />
         </div>
