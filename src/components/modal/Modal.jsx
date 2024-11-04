@@ -5,8 +5,8 @@ import './modal.scss';
 function Modal({ handleClose, onCreate }) {
 
   const [formState, setFormState] = useState({
-    title: '',
-    description: '!!!',
+    title: 'title',
+    description: 'description',
     date: moment().format('YYYY-MM-DD'),
     startTime: moment().format('HH:mm'),
     endTime: moment().add(1, 'hour').format('HH:mm'),

@@ -11,71 +11,29 @@ import './calendar.scss';
 const staticEvents = Object.assign([], events);
 
 
-// const newEvent = [{
-//   id: 8,
-//   title: ' text.title',
-//   description: 'text.description',
-//   dateFrom: new Date(2024, 10, 2, 10, 30),
-//   dateTo: new Date(2024, 10, 2, 11, 30),
-// }];
-
-// const allEvents = events.concat(newEvent);
-
 function Calendar({ modalVisible, handleClose, weekDates }) {
-  const [state, setState] = useState(staticEvents);
+  const [stateEvents, setStateEvents] = useState(staticEvents);
 
   const onCreate = text => {
-    console.log('text!!!');
-    console.log(text);
-    const { tasks } = this.state;
-    console.log(tasks);
-    const newText = [{
-      id: 8,
-      title: ' text.title',
-      description: 'text.description',
-      dateFrom: new Date(2024, 11, 2, 10, 30),
-      dateTo: new Date(2024, 11, 2, 11, 30),
-    }];
-
-    const updatedTasks = events.concat(newText);
+    const updatedTasks = stateEvents.concat(text);
     console.log(updatedTasks);
-    setState(newText);
+    setStateEvents(updatedTasks);
   }
 
-  const handleThisClick = () => {
-    console.log('handleThisClick');
-    const newEvent = [{
-      id: 8,
-      title: ' text.title',
-      description: 'text.description',
-      dateFrom: new Date(2024, 10, 4, 10, 30),
-      dateTo: new Date(2024, 10, 4, 11, 30),
-    },];
-
-    setState(newEvent);
-    console.log({ events: newEvent });
-  }
-
-  {
-    // const { weekDates } = this.props;
-
-    return (
-      <section className="calendar">
-        <button onClick={handleThisClick}>!!!!!</button>
-        <Navigation weekDates={weekDates} />
-        <div className="calendar__body">
-          <div className="calendar__week-container">
-            {modalVisible && <Modal handleClose={handleClose}
-              onCreate={onCreate} />}
-            {/* <Modal handleClose={this.props.handleClose} handleInfo={this.props.handleInfo} /> */}
-            <Sidebar />
-            <Week weekDates={weekDates} events={events} />
-            {/* <button onClick={handleThisClick}>Chane</button> */}
-          </div>
+  return (
+    <section className="calendar">
+      <Navigation weekDates={weekDates} />
+      <div className="calendar__body">
+        <div className="calendar__week-container">
+          {modalVisible && <Modal handleClose={handleClose}
+            onCreate={onCreate} />}
+          {/* <Modal handleClose={this.props.handleClose} handleInfo={this.props.handleInfo} /> */}
+          <Sidebar />
+          <Week weekDates={weekDates} events={stateEvents} />
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
 }
 
 export default Calendar;
