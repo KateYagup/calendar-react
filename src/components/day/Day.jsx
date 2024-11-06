@@ -1,12 +1,9 @@
 import React from 'react';
 import Hour from '../hour/Hour';
-import { events } from '../../../src/gateway/events.js';
-
 
 import './day.scss';
 
 const Day = ({ dataDay, dayEvents }) => {
-
   const hours = Array(24)
     .fill()
     .map((val, index) => index);

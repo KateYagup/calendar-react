@@ -11,13 +11,13 @@ import './calendar.scss';
 const staticEvents = Object.assign([], events);
 
 
-const newEvent = [{
-  id: 8,
-  title: ' text.title',
-  description: 'text.description',
-  dateFrom: new Date(2024, 10, 2, 10, 30),
-  dateTo: new Date(2024, 10, 2, 11, 30),
-}];
+// const newEvent = [{
+//   id: 8,
+//   title: ' text.title',
+//   description: 'text.description',
+//   dateFrom: new Date(2024, 10, 2, 10, 30),
+//   dateTo: new Date(2024, 10, 2, 11, 30),
+// }];
 
 // const allEvents = events.concat(newEvent);
 
@@ -31,7 +31,7 @@ function Calendar({ modalVisible, handleClose, weekDates, makeModalInvisible }) 
 
     text['dateFrom'] = dateTimeFrom;
     text['dateTo'] = dateTimeTo;
-    const updatedTasks = staticEvents.concat([text]);
+    const updatedTasks = stateEvents.concat([text]);
     setStateEvents(updatedTasks);
     // staticEvents = Object.assign([], staticEvents);
   }

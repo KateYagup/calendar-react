@@ -5,10 +5,9 @@ import { formatMins } from '../../../src/utils/dateUtils.js';
 // import { events } from '../../../src/gateway/events.js';
 
 const Hour = ({ dataHour, hourEvents }) => {
-  // console.log(events);
-  // console.log('hourEvents');
-  // console.log(hourEvents.Event);
-  // console.log(dataHour)
+  const deleteEvent = () => {
+    console.log('e.target');
+  }
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
       {/* if no events in the current hour nothing will render here */}
@@ -28,6 +27,10 @@ const Hour = ({ dataHour, hourEvents }) => {
             marginTop={dateFrom.getMinutes()}
             time={`${eventStart} - ${eventEnd}`}
             title={title}
+            // onDoubleClick={console.log('onDoubleClick')}
+            onClick={console.log(id)}
+          // onClick={deleteEvent}
+
           />
         );
       })}
