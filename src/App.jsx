@@ -34,16 +34,16 @@ const App = () => {
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   // Загрузка данных с сервера
-  const fetchTasksList = () => {
-    fetch(baseUrl).then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-      .then(taskList => {
-        setStateServer(taskList);
-      });
-  }
+  // const fetchTasksList = () => {
+  //   fetch(baseUrl).then(res => {
+  //     if (res.ok) {
+  //       return res.json();
+  //     }
+  //   })
+  //     .then(taskList => {
+  //       setStateServer(taskList);
+  //     });
+  // }
 
   const createData = () => {
     console.log('stateServer');
@@ -65,18 +65,28 @@ const App = () => {
       body: JSON.stringify(newTask),
     }).then(response => {
       if (response.ok) {
+
         fetchTasksList();
       } else {
         throw new Error('Failed to create task');
       }
     })
   }
-
-  useEffect(() => {
-    createData()
-  })
   // Конец загрузки данных с сервера
 
+  useEffect(() => {
+    const fetchTasksList = () => {
+      fetch(baseUrl).then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+        .then(taskList => {
+          setStateServer(taskList);
+        });
+    }
+    createData();
+  }, []);
 
   return (
     <>
