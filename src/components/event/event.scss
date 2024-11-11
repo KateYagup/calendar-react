@@ -24,4 +24,16 @@
 .delete-event-btn {
   cursor: pointer;
   border: none;
+
+  position: absolute;
+  right: 0;
+  display: block;
+  border-radius: 3px;
+  font-size: 14px;
+  border: none;
+  background-color: #810909;
+  color: #fff;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+  z-index: 9;
 }
