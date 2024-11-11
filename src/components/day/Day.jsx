@@ -1,21 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Hour from '../hour/Hour';
 import moment from 'moment';
 
 import './day.scss';
 
 const Day = ({ dataDay, dayEvents, handleDeleteEvent }) => {
+  const [newTime, setNewTime] = useState(new Date());
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setNewTime(new Date());
+      // console.log(newTime);
+    }, 1000 * 60)
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [])
+
+  const newTop = moment(newTime).hours() * 60 + moment(newTime).minutes();
+  // console.log(moment(newTime).hours());
+  // console.log(moment(newTime).minutes());
   return (
+
     <div className="calendar__day" data-day={dataDay}>
       {dataDay === new Date().getDate()
         && <div
           className='line'
           // style={{ top: '500px' }}
-          style={{ marginTop: moment().hours() * 60 + moment().minutes() }}
+          style={{ marginTop: newTop }}
         >
         </div>}
       {hours.map((hour) => {
