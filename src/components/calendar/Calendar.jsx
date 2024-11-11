@@ -14,7 +14,7 @@ const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
 function Calendar({ modalVisible, handleClose, weekDates, makeModalInvisible }) {
   const [stateEvents, setStateEvents] = useState(staticEvents);
-  const [stateServer, setStateServer] = useState([]);
+  const [stateServer, setStateServer] = useState(1);
 
 
   // Создание нового ивента
@@ -36,8 +36,16 @@ function Calendar({ modalVisible, handleClose, weekDates, makeModalInvisible }) 
       }
     })
       .then(taskList => {
+        setStateServer(2);
         console.log(taskList);
-        setStateServer(taskList);
+        console.log(stateEvents);
+        console.log(stateServer);
+        console.log(taskList[0].dateFrom);
+        console.log(taskList[0].dateTo);
+        // stateServer.map(task => {
+        //   console.log(new Date(task.dateFrom));
+        //   console.log(new Date(task.dateTo));
+        // })
       });
   }
 
