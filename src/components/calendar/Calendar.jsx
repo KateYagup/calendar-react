@@ -10,7 +10,7 @@ import './calendar.scss';
 
 const staticEvents = Object.assign([], events);
 
-const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
+// const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
 function Calendar({ modalVisible, handleClose, weekDates, makeModalInvisible }) {
   const [stateEvents, setStateEvents] = useState(staticEvents);
