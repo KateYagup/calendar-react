@@ -44,33 +44,10 @@ const App = () => {
     })
       .then(taskList => {
         setEvents(taskList);
-        console.log('events');
-        console.log(events);
-        console.log('taskList');
-        console.log(taskList);
       });
   }
 
   const createData = () => {
-
-    // const fetchTasksList = () => {
-    //   fetch(baseUrl).then(res => {
-    //     if (res.ok) {
-    //       return res.json();
-    //     }
-    //   })
-    //     .then(taskList => {
-    //       setEvents(taskList);
-    //       debugger;
-    //       console.log(events);
-    //       debugger;
-    //       console.log('taskList');
-    //       console.log(taskList);
-    //     });
-    // }
-
-    // console.log('stateServer');
-    // console.log(stateServer);
     const newTask = {
       // id: 3,
       id: Math.random(),
@@ -88,43 +65,19 @@ const App = () => {
       body: JSON.stringify(newTask),
     }).then(response => {
       if (response.ok) {
-        // fetch(baseUrl).then(res => {
-        //   if (res.ok) {
-        //     return res.json();
-        //   }
-        // })
-        //   .then(taskList => {
-        //     console.log(taskList);
-        //     setStateServer(taskList);
-        //   });
-
         fetchTasksList();
       } else {
         throw new Error('Failed to create task');
       }
     })
-    console.log('stateServer');
-    console.log(stateServer);
   }
   // Конец загрузки данных с сервера
 
   useEffect(() => {
-    // const fetchTasksList = () => {
-    //   fetch(baseUrl).then(res => {
-    //     if (res.ok) {
-    //       return res.json();
-    //     }
-    //   })
-    //     .then(taskList => {
-    //       setStateServer(taskList);
-    //     });
-    // }
     fetchTasksList();
-    // createData();
-    // console.log('stateServer');
-    // console.log(stateServer);
   }, []);
-
+  console.log('events');
+  console.log(events);
   return (
     <>
       <Header
@@ -135,6 +88,7 @@ const App = () => {
         handleModal={makeModalVisible}
       />
       <Calendar
+        events={events}
         weekDates={weekDates}
         modalVisible={modalVisible}
         handleClose={makeModalInvisible}
