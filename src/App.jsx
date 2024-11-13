@@ -10,7 +10,7 @@ const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date);
   const [modalVisible, setModalVisible] = useState(false);
-  const [stateServer, setStateServer] = useState([]);
+  const [events, setEvents] = useState([]);
 
   const handleNextWeek = () => {
     setWeekStartDate(new Date(weekStartDate.getTime() + 7 * 1000 * 60 * 60 * 24));
@@ -36,20 +36,41 @@ const App = () => {
 
   // Загрузка данных с сервера
   const fetchTasksList = () => {
+
     fetch(baseUrl).then(res => {
       if (res.ok) {
         return res.json();
       }
     })
       .then(taskList => {
-        setStateServer(taskList);
+        setEvents(taskList);
+        console.log('events');
+        console.log(events);
+        console.log('taskList');
         console.log(taskList);
       });
   }
 
   const createData = () => {
-    console.log('stateServer');
-    console.log(stateServer);
+
+    // const fetchTasksList = () => {
+    //   fetch(baseUrl).then(res => {
+    //     if (res.ok) {
+    //       return res.json();
+    //     }
+    //   })
+    //     .then(taskList => {
+    //       setEvents(taskList);
+    //       debugger;
+    //       console.log(events);
+    //       debugger;
+    //       console.log('taskList');
+    //       console.log(taskList);
+    //     });
+    // }
+
+    // console.log('stateServer');
+    // console.log(stateServer);
     const newTask = {
       // id: 3,
       id: Math.random(),
@@ -98,8 +119,10 @@ const App = () => {
     //       setStateServer(taskList);
     //     });
     // }
-
-    createData();
+    fetchTasksList();
+    // createData();
+    // console.log('stateServer');
+    // console.log(stateServer);
   }, []);
 
   return (

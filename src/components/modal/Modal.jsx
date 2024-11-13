@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import './modal.scss';
 
+const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
+
 function Modal({ handleClose, onCreate }) {
 
   const [formState, setFormState] = useState({
@@ -22,6 +24,24 @@ function Modal({ handleClose, onCreate }) {
   const handleEvents = (e) => {
     e.preventDefault();
     onCreate(formState);
+
+    fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formState),
+    }).then(response => {
+      if (response.ok) {
+        fetch(baseUrl).then(res => {
+          if (res.ok) return res.json();
+        }).then(taskList => console.log(taskList));
+      } else {
+        throw new Error('Failed to create task');
+      }
+    })
+
+
     handleClose();
   }
 

@@ -30,7 +30,7 @@ const Day = ({ dataDay, dayEvents, handleDeleteEvent }) => {
         && <div
           className='line'
           // style={{ top: '500px' }}
-          style={{ marginTop: newTop }}
+          style={{ top: newTop }}
         >
         </div>}
       {hours.map((hour) => {
