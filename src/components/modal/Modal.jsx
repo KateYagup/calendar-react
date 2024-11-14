@@ -4,15 +4,15 @@ import './modal.scss';
 
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
-function Modal({ handleClose, onCreate }) {
+function Modal({ handleClose, onCreate, handleEvents, formState, setFormState }) {
 
-  const [formState, setFormState] = useState({
-    title: 'title',
-    description: 'description',
-    date: moment().format('YYYY-MM-DD'),
-    startTime: moment().format('HH:mm'),
-    endTime: moment().add(1, 'hour').format('HH:mm'),
-  });
+  // const [formState, setFormState] = useState({
+  //   title: 'title',
+  //   description: 'description',
+  //   date: moment().format('YYYY-MM-DD'),
+  //   startTime: moment().format('HH:mm'),
+  //   endTime: moment().add(1, 'hour').format('HH:mm'),
+  // });
 
   const onChange = e => {
     // e.preventDefault();
@@ -21,29 +21,28 @@ function Modal({ handleClose, onCreate }) {
     console.log(formState);
   };
 
-  const handleEvents = (e) => {
-    e.preventDefault();
-    onCreate(formState);
+  // const handleEvents = (e) => {
+  //   e.preventDefault();
+  //   onCreate(formState);
 
-    fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formState),
-    }).then(response => {
-      if (response.ok) {
-        fetch(baseUrl).then(res => {
-          if (res.ok) return res.json();
-        }).then(taskList => console.log(taskList));
-      } else {
-        throw new Error('Failed to create task');
-      }
-    })
-
-
-    handleClose();
-  }
+  //   fetch(baseUrl, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(formState),
+  //   })
+  //   // .then(response => {
+  //   //   if (response.ok) {
+  //   //     fetch(baseUrl).then(res => {
+  //   //       if (res.ok) return res.json();
+  //   //     }).then(taskList => console.log(taskList));
+  //   //   } else {
+  //   //     throw new Error('Failed to create task');
+  //   //   }
+  //   // })
+  //   handleClose();
+  // }
 
   return (
     <div className="modal overlay">
@@ -64,7 +63,6 @@ function Modal({ handleClose, onCreate }) {
               <input type="date"
                 name="date"
                 className="event-form__field"
-                // value='2018-07-22' 
                 value={formState.date}
                 onChange={onChange}
                 required
@@ -87,15 +85,6 @@ function Modal({ handleClose, onCreate }) {
                 required
               />
             </div>
-            {/* <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              className="event-form__field"
-              value={formState.description}
-              onChange={onChange}
-              required
-            /> */}
             <textarea
               name="description"
               placeholder="Description"
