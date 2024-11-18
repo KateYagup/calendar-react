@@ -12,7 +12,7 @@ const Hour = ({ dataHour, hourEvents, handleDeleteEvent }) => {
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
       {/* if no events in the current hour nothing will render here */}
-      {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
+      {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
         const eventStart = `${new Date(dateFrom).getHours()}:${formatMins(
           new Date(dateFrom).getMinutes()
         )}`;
@@ -29,6 +29,7 @@ const Hour = ({ dataHour, hourEvents, handleDeleteEvent }) => {
             marginTop={new Date(dateFrom).getMinutes()}
             time={`${eventStart} - ${eventEnd}`}
             title={title}
+            description={description}
             handleDeleteEvent={handleDeleteEvent}
           // onDoubleClick={console.log('onDoubleClick')}
           // onClick={() => { console.log(id) }}

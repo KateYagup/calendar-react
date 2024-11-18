@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
+import Modal from './components/modal/Modal.jsx';
 import moment from 'moment';
 
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
@@ -12,13 +13,6 @@ const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date);
   const [modalVisible, setModalVisible] = useState(false);
   const [events, setEvents] = useState([]);
-  const [formState, setFormState] = useState({
-    title: 'title',
-    description: 'description',
-    date: moment().format('YYYY-MM-DD'),
-    startTime: moment().format('HH:mm'),
-    endTime: moment().add(1, 'hour').format('HH:mm'),
-  });
 
   const handleNextWeek = () => {
     setWeekStartDate(new Date(weekStartDate.getTime() + 7 * 1000 * 60 * 60 * 24));
@@ -81,48 +75,10 @@ const App = () => {
   }
   // Конец загрузки данных с сервера
 
-  // Создание нового ивента
-  const onCreate = text => {
-    text['id'] = Math.random();
-    const dateTimeFrom = new Date(Date.parse(text.date + 'T' + text.startTime));
-    const dateTimeTo = new Date(Date.parse(text.date + 'T' + text.endTime));
-    text['dateFrom'] = dateTimeFrom;
-    text['dateTo'] = dateTimeTo;
-    // text['description'] = 'Description of text';
-    // text['title'] = 'This is a title';
-    const updatedTasks = events.concat([text]);
-    setEvents(updatedTasks);
-  }
-
-  // Добавление данных из модального окна
-  const handleEvents = (e) => {
-    e.preventDefault();
-    onCreate(formState);
-
-    fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formState),
-    })
-    // .then(response => {
-    //   if (response.ok) {
-    //     fetch(baseUrl).then(res => {
-    //       if (res.ok) return res.json();
-    //     }).then(taskList => console.log(taskList));
-    //   } else {
-    //     throw new Error('Failed to create task');
-    //   }
-    // })
-    // handleClose();
-    makeModalInvisible();
-  }
-
   useEffect(() => {
     fetchTasksList();
-  }, [events]);
-  // }, [events]);
+  }, []);
+  // console.log(events);
 
   return (
     <>
@@ -135,75 +91,20 @@ const App = () => {
       />
       <Calendar
         events={events}
+        setEvents={setEvents}
         weekDates={weekDates}
-        modalVisible={modalVisible}
-        handleClose={makeModalInvisible}
-        handleEvents={handleEvents}
-        onCreate={onCreate}
-        formState={formState}
-        setFormState={formState}
+      // modalVisible={modalVisible}
+      // handleClose={makeModalInvisible}
       />
+      {modalVisible
+        && <Modal
+          handleClose={makeModalInvisible}
+          events={events}
+          setEvents={setEvents}
+
+        />}
     </>
   )
 }
-// }
-
-// class App extends Component {
-//   state = {
-//     weekStartDate: new Date(),
-//   };
-
-//   handleNextWeek = () => {
-//     this.setState({
-//       weekStartDate: new Date(this.state.weekStartDate.getTime() + 7 * 1000 * 60 * 60 * 24),
-//     })
-//   }
-
-//   handlePreviuosWeek = () => {
-//     this.setState({
-//       weekStartDate: new Date(this.state.weekStartDate.getTime() - 7 * 1000 * 60 * 60 * 24),
-//     })
-//   }
-
-//   handleCurrentWeek = () => {
-//     this.setState({
-//       weekStartDate: new Date(),
-//     })
-//   }
-
-//   makeModalVisible = () => {
-//     this.setState({
-//       modalVisible: true,
-//     });
-//   }
-
-//   makeModalInvisible = () => {
-//     this.setState({
-//       modalVisible: false,
-//     });
-//   }
-
-//   render() {
-//     const { weekStartDate } = this.state;
-//     const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
-
-//     return (
-//       <>
-//         <Header
-//           handleNextWeek={this.handleNextWeek}
-//           handlePreviuosWeek={this.handlePreviuosWeek}
-//           handleCurrentWeek={this.handleCurrentWeek}
-//           weekStartDate={this.state.weekStartDate}
-//           handleModal={this.makeModalVisible}
-//         />
-//         <Calendar
-//           weekDates={weekDates}
-//           modalVisible={this.state.modalVisible}
-//           handleClose={this.makeModalInvisible}
-//         />
-//       </>
-//     );
-//   }
-// }
 
 export default App;

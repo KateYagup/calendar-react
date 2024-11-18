@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './event.scss';
 
-const Event = ({ id, height, marginTop, title, time, handleDeleteEvent }) => {
+const Event = ({ id, height, marginTop, title, time, description, handleDeleteEvent }) => {
   const eventStyle = {
     height,
     marginTop,
@@ -25,13 +25,15 @@ const Event = ({ id, height, marginTop, title, time, handleDeleteEvent }) => {
     >
       {showDelete && <button
         className='delete-event-btn'
-        onClick={() => onDelete(id)}
+        // onClick={() => onDelete(id)}
+        onClick={() => handleDeleteEvent(id)}
       >
         Delete
       </button>}
-      <div>{id}</div>
+      {/* <div>{id}</div> */}
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
+      <div>{description}</div>
     </div>
   );
 };

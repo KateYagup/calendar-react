@@ -21,15 +21,12 @@ const Day = ({ dataDay, dayEvents, handleDeleteEvent }) => {
   }, [])
 
   const newTop = moment(newTime).hours() * 60 + moment(newTime).minutes();
-  // console.log(moment(newTime).hours());
-  // console.log(moment(newTime).minutes());
-  return (
 
+  return (
     <div className="calendar__day" data-day={dataDay}>
       {dataDay === new Date().getDate()
         && <div
           className='line'
-          // style={{ top: '500px' }}
           style={{ top: newTop }}
         >
         </div>}

@@ -4,45 +4,55 @@ import './modal.scss';
 
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
-function Modal({ handleClose, onCreate, handleEvents, formState, setFormState }) {
+function Modal({ handleClose, events, setEvents }) {
 
-  // const [formState, setFormState] = useState({
-  //   title: 'title',
-  //   description: 'description',
-  //   date: moment().format('YYYY-MM-DD'),
-  //   startTime: moment().format('HH:mm'),
-  //   endTime: moment().add(1, 'hour').format('HH:mm'),
-  // });
+  const [formState, setFormState] = useState({
+    title: 'title',
+    description: 'description',
+    date: moment().format('YYYY-MM-DD'),
+    startTime: moment().format('HH:mm'),
+    endTime: moment().add(1, 'hour').format('HH:mm'),
+  });
 
   const onChange = e => {
     // e.preventDefault();
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
-    console.log(formState);
+    // console.log(formState);
   };
 
-  // const handleEvents = (e) => {
-  //   e.preventDefault();
-  //   onCreate(formState);
+  const handleEvents = (e) => {
+    e.preventDefault();
 
-  //   fetch(baseUrl, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(formState),
-  //   })
-  //   // .then(response => {
-  //   //   if (response.ok) {
-  //   //     fetch(baseUrl).then(res => {
-  //   //       if (res.ok) return res.json();
-  //   //     }).then(taskList => console.log(taskList));
-  //   //   } else {
-  //   //     throw new Error('Failed to create task');
-  //   //   }
-  //   // })
-  //   handleClose();
-  // }
+    const newTask = {
+      title: formState.title,
+      description: formState.description,
+      dateFrom: new Date(Date.parse(formState.date + 'T' + formState.startTime)),
+      dateTo: new Date(Date.parse(formState.date + 'T' + formState.endTime)),
+    }
+
+    fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then(response => {
+        if (response.ok) {
+          fetch(baseUrl).then(res => {
+            if (res.ok) return res.json();
+          }).then(taskList => {
+            setEvents(taskList);
+          }
+          );
+        } else {
+          throw new Error('Failed to create task');
+        }
+      })
+    handleClose();
+
+  }
 
   return (
     <div className="modal overlay">
@@ -63,6 +73,7 @@ function Modal({ handleClose, onCreate, handleEvents, formState, setFormState })
               <input type="date"
                 name="date"
                 className="event-form__field"
+                // value='2018-07-22' 
                 value={formState.date}
                 onChange={onChange}
                 required
