@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayEvents, handleDeleteEvent }) => {
+const Day = ({ dataDay, dayEvents, setEvents }) => {
   const [newTime, setNewTime] = useState(new Date());
   const hours = Array(24)
     .fill()
@@ -39,9 +39,9 @@ const Day = ({ dataDay, dayEvents, handleDeleteEvent }) => {
         return (
           <Hour
             key={dataDay + hour}
+            setEvents={setEvents}
             dataHour={hour}
             hourEvents={hourEvents}
-            handleDeleteEvent={handleDeleteEvent}
           />
         );
       })}

@@ -103,7 +103,9 @@ function Modal({ handleClose, events, setEvents }) {
               value={formState.description}
               onChange={e => onChange(e)}
               required
-            ></textarea>
+            >\
+            </textarea>
+
             <button
               type="submit"
               className="event-form__submit-btn"

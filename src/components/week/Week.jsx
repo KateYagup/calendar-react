@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import './week.scss';
 
-const Week = ({ weekDates, events, handleDeleteEvent }) => {
+const Week = ({ weekDates, events, setEvents }) => {
 
   return (
     <div className="calendar__week">
@@ -29,9 +29,9 @@ const Week = ({ weekDates, events, handleDeleteEvent }) => {
         return (
           <Day
             key={dayStart.getDate()}
+            setEvents={setEvents}
             dataDay={dayStart.getDate()}
             dayEvents={dayEvents1}
-            handleDeleteEvent={handleDeleteEvent}
           />
         );
       })}
