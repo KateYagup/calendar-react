@@ -1,55 +1,55 @@
 import React, { useState } from 'react';
+import { getEvents, deleteEvent } from '../../../src/gateway/index.js';
+// import { events } from '../../../src/gateway/events.js';
 import moment from 'moment';
 
 import './event.scss';
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
-const Event = ({ id, height, marginTop, title, time, description, setEvents, hourEvents }) => {
+const Event = ({ id, height, marginTop, title, time, description, dateFrom, setEvents, events, hourEvents }) => {
+
+  const [showDelete, setShowDelete] = useState(false);
   const eventStyle = {
     height,
     marginTop,
   };
 
-  const { dateFrom, dateTo } = hourEvents;
+  // console.log(events[0].dateFrom);
+  // const { dateFrom, dateTo } = hourEvents;
+  // console.log('dateFrom ' + events.dateFrom);
 
-  const [showDelete, setShowDelete] = useState(false)
 
-  // const onDelete = (id) => {
-  //   handleDeleteEvent(id);
+
+  const onDelete = () => {
+    if (moment(dateFrom).diff(moment(), 'minutes') < 15) {
+      alert('The event cannot be deleted less then 15 minutes before it starts');
+      return setShowDelete(false);
+    }
+    deleteEvent(id).then(() => getEvents().then(setEvents));
+  }
+
+  // Удаление ивента
+  // const handleDeleteEvent = (id) => {
+  //   fetch(`${baseUrl}/${id}`, {
+  //     method: 'DELETE'
+  //   })
+  //     .then(response => {
+  //       if (response.ok) {
+  //         fetch(baseUrl).then(res => {
+  //           if (res.ok) return res.json();
+  //         }).then(taskList => {
+  //           setEvents(taskList);
+  //         }
+  //         );
+  //       } else {
+  //         throw new Error('Failed to create task');
+  //       }
+  //     })
   // }
 
 
-  // Удаление ивента
-  const handleDeleteEvent = (id) => {
-
-    fetch(`${baseUrl}/${id}`, {
-      method: 'DELETE'
-    })
-      .then(response => {
-        if (response.ok) {
-          fetch(baseUrl).then(res => {
-            if (res.ok) return res.json();
-          }).then(taskList => {
-            setEvents(taskList);
-          }
-          );
-        } else {
-          throw new Error('Failed to create task');
-        }
-      })
-  }
-
-  const onDelete = (): void => {
-    if (moment(dateFrom).diff(moment(), 'minutes') < 15) {
-      alert(errorMessage.delete);
-      return setIsDeleteButtonVisible(false);
-    }
-    handleDeleteEvent(id).then(() => getEvents().then(setEvents));
-  }
-
   const handleShowDelete = () => {
     setShowDelete(!showDelete);
-    console.log(showDelete);
   }
 
   return (
@@ -59,7 +59,7 @@ const Event = ({ id, height, marginTop, title, time, description, setEvents, hou
       {showDelete && <button
         className='delete-event-btn'
         // onClick={() => onDelete(id)}
-        onClick={() => handleDeleteEvent(id)}
+        onClick={() => onDelete()}
       >
         Delete
       </button>}

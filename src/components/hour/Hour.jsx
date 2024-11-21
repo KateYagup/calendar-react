@@ -4,10 +4,8 @@ import Event from '../event/Event';
 import { formatMins } from '../../../src/utils/dateUtils.js';
 // import { events } from '../../../src/gateway/events.js';
 
-const Hour = ({ dataHour, hourEvents, setEvents }) => {
-  // const deleteEvent = () => {
-  //   console.log('e.target');
-  // }
+const Hour = ({ dataHour, hourEvents, events, setEvents, dateFrom }) => {
+
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
@@ -24,6 +22,8 @@ const Hour = ({ dataHour, hourEvents, setEvents }) => {
           <Event
             key={id}
             id={id}
+            dateFrom={dateFrom}
+            events={events}
             setEvents={setEvents}
             //calculating event height = duration of event in minutes
             height={(new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60)}

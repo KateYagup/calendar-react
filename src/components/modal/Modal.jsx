@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import { getEvents, createEvent } from '../../../src/gateway/index.js';
 import './modal.scss';
 
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
@@ -31,27 +32,41 @@ function Modal({ handleClose, events, setEvents }) {
       dateTo: new Date(Date.parse(formState.date + 'T' + formState.endTime)),
     }
 
-    fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newTask),
-    })
-      .then(response => {
-        if (response.ok) {
-          fetch(baseUrl).then(res => {
-            if (res.ok) return res.json();
-          }).then(taskList => {
-            setEvents(taskList);
-          }
-          );
-        } else {
-          throw new Error('Failed to create task');
-        }
-      })
-    handleClose();
+    console.log(newTask.dateFrom.getTime());
 
+    if (newTask.dateFrom.getTime() > newTask.dateTo.getTime()) {
+      alert('Начало должно начинаться ранше конца мероприятия.')
+      return;
+    }
+
+    if (newTask.dateTo.getTime() - newTask.dateFrom.getTime() <= 60 * 1000) {
+      alert('Подія має тривати не менше години.');
+      return;
+    }
+
+    // console.log(Date.parse(events[0].dateFrom));
+    events.map(event => {
+      if (Date.parse(event.dateFrom) < newTask.dateFrom.getTime()
+        && Date.parse(event.dateTo) > newTask.dateFrom.getTime()
+        || Date.parse(event.dateFrom) < newTask.dateTo.getTime()
+        && Date.parse(event.dateTo) > newTask.dateTo.getTime()) {
+        alert('Події не повинні перетинатися');
+        return;
+      }
+    })
+
+
+
+    // const errorMessage = validateCreateEvent(newEvent, events);
+
+    // if (errorMessage) {
+    //   alert(errorMessage);
+    //   return;
+    // }
+
+    createEvent(newTask).then(() => getEvents().then(setEvents))
+
+    handleClose();
   }
 
   return (
@@ -109,7 +124,8 @@ function Modal({ handleClose, events, setEvents }) {
             <button
               type="submit"
               className="event-form__submit-btn"
-              onClick={handleEvents}>
+              onClick={handleEvents}
+            >
               Create
             </button>
           </form>
