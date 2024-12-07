@@ -13,7 +13,10 @@ const Navigation = ({ weekDates }) => {
       {weekDates.map((dayDate) => (
         < div className="calendar__day-label day-label" >
           <span className="day-label__day-name">{days[dayDate.getDay()]}</span>
-          <span className={`'day-label__day-number' ${todayDate === dayDate.getDate() ? 'day-label__today-number' : ''}`}>{dayDate.getDate()}</span>
+          <span className={`'day-label__day-number' ${todayDate === dayDate.getDate()
+            ? 'day-label__today-number'
+            : ''}`}>{dayDate.getDate()}
+          </span>
         </div>
       ))
       }

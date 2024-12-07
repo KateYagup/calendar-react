@@ -4,7 +4,8 @@ import moment from 'moment';
 import './header.scss';
 import { getWeekStartDate, months } from '../../utils/dateUtils';
 
-const Header = ({ handleNextWeek, handlePreviuosWeek, handleCurrentWeek, weekStartDate, handleModal }) => {
+const Header = ({ handleNextWeek, handlePreviuosWeek,
+  handleCurrentWeek, weekStartDate, handleModal }) => {
   const firstDayOfWeek = getWeekStartDate(weekStartDate);
   const lastDayOfWeek = new Date(firstDayOfWeek.getTime() + 10000 * 360 * 24 * 6);
 
