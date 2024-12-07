@@ -39,6 +39,7 @@ const App = () => {
   // Загрузка данных с сервера
   const fetchTasksList = () => {
 
+
     fetch(baseUrl).then(res => {
       if (res.ok) {
         return res.json();
