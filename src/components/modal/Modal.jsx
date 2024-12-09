@@ -55,8 +55,6 @@ function Modal({ handleClose, events, setEvents }) {
       }
     })
 
-
-
     // const errorMessage = validateCreateEvent(newEvent, events);
 
     // if (errorMessage) {
