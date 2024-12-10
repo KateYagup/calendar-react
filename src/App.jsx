@@ -36,7 +36,6 @@ const App = () => {
 
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
-  // Загрузка данных с сервера
   const fetchTasksList = () => {
 
 
@@ -52,7 +51,6 @@ const App = () => {
 
   const createData = () => {
     const newTask = {
-      // id: 3,
       id: Math.random(),
       title: '',
       description: '',

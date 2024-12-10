@@ -2,14 +2,12 @@ import React from 'react';
 
 import Event from '../event/Event';
 import { formatMins } from '../../../src/utils/dateUtils.js';
-// import { events } from '../../../src/gateway/events.js';
 
 const Hour = ({ dataHour, hourEvents, events, setEvents, dateFrom }) => {
 
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {/* if no events in the current hour nothing will render here */}
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
         const eventStart = `${new Date(dateFrom).getHours()}:${formatMins(
           new Date(dateFrom).getMinutes()
@@ -25,7 +23,6 @@ const Hour = ({ dataHour, hourEvents, events, setEvents, dateFrom }) => {
             dateFrom={dateFrom}
             events={events}
             setEvents={setEvents}
-            //calculating event height = duration of event in minutes
             height={(new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60)}
             marginTop={new Date(dateFrom).getMinutes()}
             time={`${eventStart} - ${eventEnd}`}

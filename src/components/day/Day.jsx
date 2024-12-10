@@ -13,7 +13,6 @@ const Day = ({ dataDay, dayEvents, events, setEvents }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setNewTime(new Date());
-      // console.log(newTime);
     }, 1000 * 60)
     return () => {
       clearInterval(intervalId);

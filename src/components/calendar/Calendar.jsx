@@ -6,9 +6,6 @@ import Sidebar from '../sidebar/Sidebar';
 
 import './calendar.scss';
 
-// const staticEvents = Object.assign([], events);
-// const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
-
 function Calendar({ weekDates, events, setEvents }) {
 
   return (

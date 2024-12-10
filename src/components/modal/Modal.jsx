@@ -16,10 +16,8 @@ function Modal({ handleClose, events, setEvents }) {
   });
 
   const onChange = e => {
-    // e.preventDefault();
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
-    // console.log(formState);
   };
 
   const handleEvents = (e) => {
@@ -44,7 +42,6 @@ function Modal({ handleClose, events, setEvents }) {
       return;
     }
 
-    // console.log(Date.parse(events[0].dateFrom));
     events.map(event => {
       if (Date.parse(event.dateFrom) < newTask.dateFrom.getTime()
         && Date.parse(event.dateTo) > newTask.dateFrom.getTime()
@@ -54,14 +51,6 @@ function Modal({ handleClose, events, setEvents }) {
         return;
       }
     })
-
-    // const errorMessage = validateCreateEvent(newEvent, events);
-
-    // if (errorMessage) {
-    //   alert(errorMessage);
-    //   return;
-    // }
-
     createEvent(newTask).then(() => getEvents().then(setEvents))
 
     handleClose();
@@ -86,7 +75,6 @@ function Modal({ handleClose, events, setEvents }) {
               <input type="date"
                 name="date"
                 className="event-form__field"
-                // value='2018-07-22' 
                 value={formState.date}
                 onChange={onChange}
                 required
