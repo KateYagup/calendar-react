@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './header.scss';
-import { getWeekStartDate, months } from '../../utils/dateUtils';
+import { getWeekStartDate, months } from '../../common/utils/dateUtils';
 
 const Header = ({ handleNextWeek, handlePreviuosWeek,
   handleCurrentWeek, weekStartDate, handleModal }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { days } from '../../utils/dateUtils.js';
+import { days } from '../../common/utils/dateUtils.js';
 
 const Navigation = ({ weekDates }) => {
   const today = new Date();

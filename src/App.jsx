@@ -4,9 +4,9 @@ import Calendar from './components/calendar/Calendar.jsx';
 import Modal from './components/modal/Modal.jsx';
 import moment from 'moment';
 
-import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
+import { getWeekStartDate, generateWeekRange } from './common/utils/dateUtils.js';
 
-import './common.scss';
+import './common/common.scss';
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
 const App = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getEvents, deleteEvent } from '../../../src/gateway/index.js';
+import { getEvents, deleteEvent } from '../../common/gateway/index.js';
 // import { events } from '../../../src/gateway/events.js';
 import moment from 'moment';
 

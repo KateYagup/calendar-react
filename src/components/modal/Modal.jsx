@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { getEvents, createEvent } from '../../../src/gateway/index.js';
+import { getEvents, createEvent } from '../../common/gateway/index.js';
 import './modal.scss';
 
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
