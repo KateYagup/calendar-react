@@ -15,6 +15,10 @@ function Modal({ handleClose, events, setEvents }) {
     endTime: moment().add(1, 'hour').format('HH:mm'),
   });
 
+  if (formState.startTime === '00:00') {
+    alert("Calendar can't display event which started at 00:00");
+    return;
+  }
   const onChange = e => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
@@ -30,7 +34,7 @@ function Modal({ handleClose, events, setEvents }) {
       dateTo: new Date(Date.parse(formState.date + 'T' + formState.endTime)),
     }
 
-    console.log(newTask.dateFrom.getTime());
+    // console.log(newTask.dateFrom.getTime());
 
     if (newTask.dateFrom.getTime() > newTask.dateTo.getTime()) {
       alert('Начало должно начинаться ранше конца мероприятия.')

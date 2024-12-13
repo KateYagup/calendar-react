@@ -77,7 +77,6 @@ const App = () => {
   useEffect(() => {
     fetchTasksList();
   }, []);
-  // console.log(events);
 
   return (
     <>
@@ -92,8 +91,6 @@ const App = () => {
         events={events}
         setEvents={setEvents}
         weekDates={weekDates}
-      // modalVisible={modalVisible}
-      // handleClose={makeModalInvisible}
       />
       {modalVisible
         && <Modal

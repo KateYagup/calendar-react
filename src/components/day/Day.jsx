@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayEvents, events, setEvents }) => {
+const Day = ({ dataDay, dayEvents, events, setEvents, currentDay }) => {
   const [newTime, setNewTime] = useState(new Date());
   const hours = Array(24)
     .fill()
@@ -23,7 +23,7 @@ const Day = ({ dataDay, dayEvents, events, setEvents }) => {
 
   return (
     <div className="calendar__day" data-day={dataDay}>
-      {dataDay === new Date().getDate()
+      {moment(currentDay).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')
         && <div
           className='line'
           style={{ top: newTop }}

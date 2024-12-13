@@ -1,4 +1,4 @@
-# Project Calendar
+# Project Price cards
 
 ### [Site link](https://kateyagup.github.io/price-card/)
 

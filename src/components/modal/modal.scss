@@ -36,6 +36,7 @@
     width: 24px;
     height: 24px;
     background: transparent;
+    cursor: pointer;
   }
 }
 
@@ -49,6 +50,7 @@
   }
 
   &__submit-btn {
+    cursor: pointer;
     margin: 8px;
     margin-left: auto;
     border: none;
