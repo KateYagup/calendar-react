@@ -8,17 +8,17 @@ const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 function Modal({ handleClose, events, setEvents }) {
 
   const [formState, setFormState] = useState({
-    title: 'title',
-    description: 'description',
+    title: '',
+    description: '',
     date: moment().format('YYYY-MM-DD'),
     startTime: moment().format('HH:mm'),
     endTime: moment().add(1, 'hour').format('HH:mm'),
   });
 
-  if (formState.startTime === '00:00') {
-    alert("Calendar can't display event which started at 00:00");
-    return;
-  }
+  // if (formState.startTime === '00:00') {
+  //   alert("Calendar can't display event which started at 00:00");
+  //   return;
+  // }
   const onChange = e => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
@@ -33,8 +33,6 @@ function Modal({ handleClose, events, setEvents }) {
       dateFrom: new Date(Date.parse(formState.date + 'T' + formState.startTime)),
       dateTo: new Date(Date.parse(formState.date + 'T' + formState.endTime)),
     }
-
-    // console.log(newTask.dateFrom.getTime());
 
     if (newTask.dateFrom.getTime() > newTask.dateTo.getTime()) {
       alert('Начало должно начинаться ранше конца мероприятия.')
