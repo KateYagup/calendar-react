@@ -18,7 +18,7 @@ const Week = ({ weekDates, events, setEvents }) => {
         // Формуємо івенти на поточний день
         const dayEvents1 = events.filter(
           (event) => {
-            return Date.parse(event.dateFrom) > dayStart.getTime() && Date.parse(event.dateTo) < dayEnd;
+            return Date.parse(event.dateFrom) >= dayStart.getTime() && Date.parse(event.dateTo) <= dayEnd;
           }
         );
 
