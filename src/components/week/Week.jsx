@@ -10,7 +10,6 @@ const Week = ({ weekDates, events, setEvents }) => {
   return (
     <div className="calendar__week">
       {weekDates.map((dayStart) => {
-        // console.log(dayStart);
         const dayEnd = new Date(dayStart.getTime()).setHours(
           dayStart.getHours() + 24
         );

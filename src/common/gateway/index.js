@@ -1,12 +1,17 @@
 // Удаление ивента
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
+// export const getEvents = () =>
+//     fetch(baseUrl)
+//         .then((response) => {
+//             if (!response.ok) throw new Error("Error: Cant't display events");
+//             return response.json();
+//         })
+
 export const getEvents = () =>
     fetch(baseUrl)
-        .then((response) => {
-            if (!response.ok) throw new Error("Error: Cant't display events");
-            return response.json();
-        })
+        .then((response) => response.json())
+        .catch(err => new Error("Error: Cant't display events"))
 
 export const deleteEvent = (eventId) =>
     fetch(`${baseUrl}/${eventId}`, { method: "DELETE" })

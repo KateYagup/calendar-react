@@ -3,8 +3,8 @@ import React from 'react';
 import './header.scss';
 import { getWeekStartDate, months } from '../../common/utils/dateUtils';
 
-const Header = ({ handleNextWeek, handlePreviuosWeek,
-  handleCurrentWeek, weekStartDate, handleModal }) => {
+// const Header = ({ handleNextWeek, handlePreviuosWeek,  handleCurrentWeek, weekStartDate, handleModal }) => {
+const Header = ({ weekStartDate, setWeekStartDate, handleModal }) => {
   const firstDayOfWeek = getWeekStartDate(weekStartDate);
   const lastDayOfWeek = new Date(firstDayOfWeek.getTime() + 10000 * 360 * 24 * 6);
 
@@ -12,6 +12,18 @@ const Header = ({ handleNextWeek, handlePreviuosWeek,
   const month = (firstDayOfWeek.getMonth() === lastDayOfWeek.getMonth())
     ? `${months[firstDayOfWeek.getMonth()].slice(0, 3)} ${firstDayOfWeek.getFullYear()}`
     : `${months[firstDayOfWeek.getMonth()].slice(0, 3)} - ${months[lastDayOfWeek.getMonth()].slice(0, 3)} ${firstDayOfWeek.getFullYear()}`;
+
+  const handleNextWeek = () => {
+    setWeekStartDate(new Date(weekStartDate.getTime() + 7 * 1000 * 60 * 60 * 24));
+  }
+
+  const handlePreviuosWeek = () => {
+    setWeekStartDate(new Date(weekStartDate.getTime() - 7 * 1000 * 60 * 60 * 24));
+  }
+
+  const handleCurrentWeek = () => {
+    setWeekStartDate(new Date());
+  }
 
   return (
     <header className="header">

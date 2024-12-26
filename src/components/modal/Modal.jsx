@@ -27,29 +27,51 @@ function Modal({ handleClose, events, setEvents }) {
     const newTask = {
       title: formState.title,
       description: formState.description,
-      dateFrom: new Date(Date.parse(formState.date + 'T' + formState.startTime)),
-      dateTo: new Date(Date.parse(formState.date + 'T' + formState.endTime)),
+      dateFrom: moment(`${formState.date} ${formState.startTime}`).toDate(),
+      dateTo: moment(`${formState.date} ${formState.endTime}`).toDate(),
     }
 
-    if (newTask.dateFrom.getTime() > newTask.dateTo.getTime()) {
-      alert('Начало должно начинаться ранше конца мероприятия.')
-      return;
-    }
-
-    if (newTask.dateTo.getTime() - newTask.dateFrom.getTime() <= 60 * 1000) {
-      alert('Подія має тривати не менше години.');
-      return;
-    }
-
-    events.map(event => {
-      if (Date.parse(event.dateFrom) < newTask.dateFrom.getTime()
-        && Date.parse(event.dateTo) > newTask.dateFrom.getTime()
-        || Date.parse(event.dateFrom) < newTask.dateTo.getTime()
-        && Date.parse(event.dateTo) > newTask.dateTo.getTime()) {
-        alert('Події не повинні перетинатися');
-        return;
+    const validateCreatedEvent = (eventData, events) => {
+      const { dateFrom, dateTo } = eventData;
+      if (dateFrom > dateTo) {
+        return {
+          isValid: false,
+          validationMessage: 'Начало должно начинаться ранше конца мероприятия!!!'
+        }
       }
-    })
+      const duration = moment.duration(moment(dateTo).diff(dateFrom))
+      if (duration.asHours() < 1) {
+        return {
+          isValid: false,
+          validationMessage: 'Подія має тривати не менше години!!!'
+        }
+      }
+
+      const isOverLapping = events.some(event => {
+        return (
+          Date.parse(event.dateFrom) < dateFrom
+          && Date.parse(event.dateTo) > dateFrom
+          || Date.parse(event.dateFrom) < dateTo
+          && Date.parse(event.dateTo) > dateTo
+        )
+      })
+      if (isOverLapping) {
+        return {
+          isValid: false,
+          validationMessage: 'Події не повинні перетинатися'
+        }
+      }
+      return { isValid: true, validationMessage: '' }
+    }
+
+    const { isValid, validationMessage } = validateCreatedEvent(newTask, events);
+
+    if (!isValid) {
+      alert(validationMessage);
+      return;
+    }
+
+
     createEvent(newTask).then(() => getEvents().then(setEvents))
 
     handleClose();
