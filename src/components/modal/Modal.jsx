@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { getEvents, createEvent } from '../../common/gateway/index.js';
 import './modal.scss';
+import { validateCreatedEvent } from '../../common/utils/validation.js'
 
-const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
-
-function Modal({ handleClose, events, setEvents }) {
+const Modal = ({ handleClose, events, setEvents }) => {
 
   const [formState, setFormState] = useState({
     title: '',
@@ -31,38 +30,38 @@ function Modal({ handleClose, events, setEvents }) {
       dateTo: moment(`${formState.date} ${formState.endTime}`).toDate(),
     }
 
-    const validateCreatedEvent = (eventData, events) => {
-      const { dateFrom, dateTo } = eventData;
-      if (dateFrom > dateTo) {
-        return {
-          isValid: false,
-          validationMessage: 'Начало должно начинаться ранше конца мероприятия!!!'
-        }
-      }
-      const duration = moment.duration(moment(dateTo).diff(dateFrom))
-      if (duration.asHours() < 1) {
-        return {
-          isValid: false,
-          validationMessage: 'Подія має тривати не менше години!!!'
-        }
-      }
+    // const validateCreatedEvent = (eventData, events) => {
+    //   const { dateFrom, dateTo } = eventData;
+    //   if (dateFrom > dateTo) {
+    //     return {
+    //       isValid: false,
+    //       validationMessage: 'Начало должно начинаться ранше конца мероприятия!!!'
+    //     }
+    //   }
+    //   const duration = moment.duration(moment(dateTo).diff(dateFrom))
+    //   if (duration.asHours() < 1) {
+    //     return {
+    //       isValid: false,
+    //       validationMessage: 'Подія має тривати не менше години!!!'
+    //     }
+    //   }
 
-      const isOverLapping = events.some(event => {
-        return (
-          Date.parse(event.dateFrom) < dateFrom
-          && Date.parse(event.dateTo) > dateFrom
-          || Date.parse(event.dateFrom) < dateTo
-          && Date.parse(event.dateTo) > dateTo
-        )
-      })
-      if (isOverLapping) {
-        return {
-          isValid: false,
-          validationMessage: 'Події не повинні перетинатися'
-        }
-      }
-      return { isValid: true, validationMessage: '' }
-    }
+    //   const isOverLapping = events.some(event => {
+    //     return (
+    //       Date.parse(event.dateFrom) < dateFrom
+    //       && Date.parse(event.dateTo) > dateFrom
+    //       || Date.parse(event.dateFrom) < dateTo
+    //       && Date.parse(event.dateTo) > dateTo
+    //     )
+    //   })
+    //   if (isOverLapping) {
+    //     return {
+    //       isValid: false,
+    //       validationMessage: 'Події не повинні перетинатися'
+    //     }
+    //   }
+    //   return { isValid: true, validationMessage: '' }
+    // }
 
     const { isValid, validationMessage } = validateCreatedEvent(newTask, events);
 

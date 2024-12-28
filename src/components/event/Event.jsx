@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { getEvents, deleteEvent } from '../../common/gateway/index.js';
 import moment from 'moment';
-
 import './event.scss';
-const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
-const Event = ({ id, height, marginTop, title, time, description, dateFrom, setEvents, events, hourEvents }) => {
+const Event = ({ id, height, marginTop, title, time, description, dateFrom, setEvents }) => {
 
   const [showDelete, setShowDelete] = useState(false);
   const eventStyle = {

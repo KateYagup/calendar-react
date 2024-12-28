@@ -7,7 +7,6 @@ const Navigation = ({ weekDates }) => {
   const today = new Date();
   const todayDate = today.getDate();
 
-  const listItemClass = `"day-label__day-name" ${today}`;
   return (
     <header className="calendar__header">
       {weekDates.map((dayDate) => (

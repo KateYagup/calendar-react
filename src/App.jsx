@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
 import Modal from './components/modal/Modal.jsx';
-
 import { getWeekStartDate, generateWeekRange } from './common/utils/dateUtils.js';
-
 import './common/common.scss';
+
 const baseUrl = 'https://66efde95f2a8bce81be46357.mockapi.io/tasks';
 
 const App = () => {

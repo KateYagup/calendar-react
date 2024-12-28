@@ -8,7 +8,7 @@ const Day = ({ dataDay, dayEvents, events, setEvents, currentDay }) => {
   const [newTime, setNewTime] = useState(new Date());
   const hours = Array(24)
     .fill()
-    .map((val, index) => index);
+    .map((_, index) => index);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

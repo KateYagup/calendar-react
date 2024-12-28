@@ -1,20 +1,14 @@
 import React from 'react';
-
 import Event from '../event/Event';
 import { formatMins } from '../../common/utils/dateUtils.js';
+import moment from 'moment';
 
-const Hour = ({ dataHour, hourEvents, events, setEvents, dateFrom }) => {
-
-
+const Hour = ({ dataHour, hourEvents, events, setEvents }) => {
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
-        const eventStart = `${new Date(dateFrom).getHours()}:${formatMins(
-          new Date(dateFrom).getMinutes()
-        )}`;
-        const eventEnd = `${new Date(dateTo).getHours()}:${formatMins(
-          new Date(dateTo).getMinutes()
-        )}`;
+        const eventStart = `${moment(dateFrom).format('H:mm')}`;
+        const eventEnd = `${moment(dateTo).format('H:mm')}`;
 
         return (
           <Event
